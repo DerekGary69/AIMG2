@@ -3,10 +3,337 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hello World</title>
+    <title>AIMG</title>
+    <style>
+        /* CSS reset styles go here */
+        body, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td {
+            margin: 0;
+            padding: 0;
+            border: 0;
+            font-size: 100%;
+            font: inherit;
+            vertical-align: baseline;
+            box-sizing: border-box;
+        }
+        /* styles */
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #AAA;
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100svh;
+            align-items: center;
+        }
+
+        section {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            /* overflow-y: scroll; */
+            /* max-height: 50svh; */
+            margin: 1em;
+        }
+
+        #viewImg {
+            height: 100%;
+            /* max-height: 50%; */
+            max-width: 100%;
+            padding: 1em 2em;
+        }
+
+        #key {
+            margin: 1em;
+            max-width: 20%;
+        }
+
+        img {
+            border-radius: 1rem !important;
+        }
+
+        button {
+            background-color: #333;
+            color: #fff;
+            border: none;
+            padding: 1em;
+            font-size: 1em;
+            cursor: pointer;
+            /* text-transform: uppercase; */
+            width: 30%;
+            /* border-radius: 5px; */
+            transition: all 0.3s ease-in-out;
+            box-shadow: inset 2px -4px 0px 0 rgb(0 0 150);
+        }
+
+        button:disabled {
+            background-color: #999;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+
+        button:hover {
+            background-color: #898989;
+            box-shadow: inset 0px 0px 0px 0 rgb(0 0 150);
+
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 1em 0;
+            text-align: center;
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        header h1 {
+            font-size: 2em;
+        }
+
+        .canvas {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-around;
+            max-height: 100%;
+            background-color: #e6e6e6;
+            border-radius: 1em;
+            width: 50%;
+            min-height: 50svh;
+            /* box-shadow: inset 1em -1em 0 0 #333; */
+            box-shadow: inset 0em 0em 4px 0 #333;
+        }
+
+        #result img {
+            max-width: 100%;
+            max-height: 100%;
+        }
+
+        .page {
+            display: none;
+            text-align: center;
+            flex-grow: 1;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-evenly;
+            width: 100%;
+        }
+
+        .page.active {
+            display: flex;
+        }
+
+        b, #whatType {
+            font-weight: bold;
+            font-style: italic;
+        }
+
+        #whatButton {
+            background-color: #5186d0;
+        }
+
+        #whatButton:hover {
+            background-color: #3a5f8c;
+        }
+
+        .staticText {
+            font-size: 1.8em;
+            display: block;
+            /* margin-bottom: 1em; */
+        }
+
+        #whatType::first-letter {
+            text-transform: lowercase;
+        }
+
+        .go {
+            /* border-radius: 50%; */
+            background-color: rgb(0, 200, 0);
+            padding: 1.25em 1em;
+            font-weight: bold;
+            box-shadow: inset   2px -4px 0px 0 rgb(0, 108, 0);
+        }
+
+        .go:hover {
+            background-color: rgb(0, 150, 0);
+            box-shadow: inset 0px 0px 0px 0 rgb(0, 108, 0);
+        }
+
+        .go:disabled {
+            background-color: #999;
+            cursor: not-allowed;
+        }
+
+        .back {
+            background-color: rgb(200, 0, 0);
+            box-shadow: inset 2px -4px 0px 0 rgb(108, 0, 0);
+        }
+
+        .back:hover {
+            background-color: rgb(150, 0, 0);
+            box-shadow: inset 0px 0px 0px 0 rgb(108, 0, 0);
+        }
+
+        .btnsHor {
+            display: flex;
+            justify-content: space-evenly;
+            width: 100%;
+            margin: 1em;
+        }
+
+        input {
+            padding: 1em;
+            font-size: 1em;
+            border-radius: 5px;
+            border: none;
+            width: 60%;
+            margin: 1em 2em 2em;
+        }
+
+        #preview {
+            max-height: 60vh;
+            border-radius: 1em;
+            max-width: 100%;
+            padding: 2em;
+        }
+
+        #viewResult {
+            padding: 1em;
+        }
+        
+        #file {
+            background: #d8d8d8;
+            margin: 0;
+        }
+
+        @media (max-width: 700px) {
+            .canvas {
+                width: 90%;
+            }
+            input {
+                width: 50%;
+            }
+            button {
+                width: 30%;
+            }
+            #viewImg {
+                max-width: 100%;
+            }
+        }
+
+    </style>
 </head>
 <body>
-    
+    <header>
+        <h1>aimg</h1>
+        <input id="key" type="password" placeholder="API Key">
+    </header>
+    <div id="page1" class="page active">
+        <section id="what">
+            <div class="canvas">
+                <span class="staticText">I <span id="whatType" data-value="1">want</span> an image...</span>
+                <button type="button" id="whatButton" onclick="whatButton()">Have</button>
+            </div>
+        </section>
+        <button class="go" onclick="go()">Go</button>
+    </div>
+    <div id="page2" class="page">
+        <section id="create">
+            <div class="canvas">
+                <span class="staticText">I want an image...<br> <b>of...</b></span>
+                <input type="text" id="prompt" placeholder="...a cute cat">
+            </div>
+        </section>
+        <div class="btnsHor">
+            <button class="go back" onclick="pageTransition('page1')">No</button>
+            <button id="genBtn" class="go" onclick="pageTransition('page4')">Go</button>
+
+        </div>
+    </div>
+
+    <div id="page3" class="page">
+        <section>
+            <input type="file" id="file" accept="image/*" onchange="fileSelected()">
+        </section>
+        <section>
+            <img id="preview" src="" alt="Preview">
+        </section>
+        <div class="btnsHor">
+            <button class="go back" onclick="pageTransition('page1')">No</button>
+            <button id="upload" class="go" onclick="pageTransition('page5')">Go</button>
+        </div>
+    </div>
+
+    <div id="page4" class="page">
+        <section>
+            <div class="canvas" id="result">
+                <span class="staticText">Loading...</span>
+            </div>
+        </section>
+        <div class="btnsHor">
+            <button class="go back" onclick="pageTransition('page1')">Back</button>
+            <button id="viewGenImg" class="go" onclick="pageTransition('page5')">View</button>
+        </div>
+    </div>
+
+    <div id="page5" class="page">
+        <section>
+            <div class="canvas">
+                <span class="staticText">Analyzing this image:</span>
+                <img id="viewImg" src="" alt="Image to View">
+                <input type="text" id="viewPrompt" placeholder="Describe the composition...">
+                <span class="resultText" id="viewResult" style="display: none;"></span>
+            </div>
+        </section>
+        <div class="btnsHor">
+            <button class="go back" onclick="go()">Back</button>
+            <button id="regen" style="display: none;">Re-Analyze</button>
+            <button class="go" id="analyzeImg" data-value="0">Go</button>
+        </div>
+    </div>
 </body>
-<script src="./client.js"></script>
+
+<script>
+    function whatButton() {
+        let whatType = document.getElementById('whatType');
+        let whatButton = document.getElementById('whatButton');
+        let state = whatType.getAttribute('data-value');
+        whatType.innerHTML = state == 1 ? 'have' : 'want';
+        whatType.setAttribute('data-value', state == 1 ? 0 : 1);
+        whatButton.innerHTML = state == 1 ? 'Want' : 'Have';
+    }
+
+    function pageTransition(page) {
+        console.log('pageTransition', page);
+        let targetPage = document.getElementById(page);
+        let pages = document.querySelectorAll('.page');
+        pages.forEach(page => {
+            page.classList.remove('active');
+        });
+        targetPage.classList.add('active');
+    }
+
+    function go() {
+        let whatType = document.getElementById('whatType');
+        let state = whatType.getAttribute('data-value');
+        let page = state == 1 ? 'page2' : 'page3';
+        pageTransition(page);
+    
+    }
+
+    function fileSelected() {
+        let file = document.getElementById('file').files[0];
+        let preview = document.getElementById('preview');
+        preview.src = URL.createObjectURL(file);
+    }
+</script>
+<script src="./client.js" type="module"></script>
 </html>
