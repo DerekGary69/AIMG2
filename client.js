@@ -65,7 +65,7 @@ window.addEventListener('DOMContentLoaded', () => {
         let prompt = userPrompt ? userPrompt : promptVal;
         prefix ? prompt = `${prompt}. The user has also included these instructions: ${prefix}` : null;
         const image = {
-            model: 'dall-e-2',
+            model: model,
             prompt: `${prompt}`,
         };
 
@@ -122,6 +122,20 @@ window.addEventListener('DOMContentLoaded', () => {
             viewGenImg.disabled = false;
         }
     });
+
+    let model = 'dall-e-3'
+
+    function modelButton() {
+        let modelBtn = document.getElementById('model');
+        model = model == 'dall-e-3' ? 'dall-e-2' : 'dall-e-3';
+        modelBtn.innerHTML = model == 'dall-e-3' ? 'v3' : 'v2';
+        setTimeout(() => {
+            modelBtn.innerHTML = model == 'dall-e-3' ? '&#128170;' : '&#128169;';
+        }, 1000);
+    }
+
+    let modelBtn = document.getElementById('model');
+    modelBtn.addEventListener('click', modelButton);
 
     async function analyzeImg() {
         const key = document.getElementById('key').value;
