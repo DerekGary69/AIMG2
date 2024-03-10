@@ -78,6 +78,11 @@ window.addEventListener('DOMContentLoaded', () => {
         analyzeBtn.disabled = true;
         if(analyzeBtn.getAttribute('data-value') == 0) {
             let result = await analyzeImg();
+            if(result.error) {
+                alert(`Error: ${result.error.message}`);
+                analyzeBtn.disabled = false;
+                return;
+            }
             viewResult.innerHTML = `${result.choices[0].message.content}`;
             analyzeBtn.disabled = false;
             let regenBtn = document.getElementById('regen');
@@ -104,6 +109,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
             if(result.error) {
                 document.getElementById('result').innerHTML = `<span class='staticText'>Error: ${result.error.message}</span>`;
+                alert(`Error: ${result.error.message}`);
                 viewGenImg.disabled = false;
                 return;
             }
@@ -143,6 +149,10 @@ window.addEventListener('DOMContentLoaded', () => {
         let viewResult = document.getElementById('viewResult');
         viewResult.innerHTML = '';
         let blobUrl = document.getElementById('preview').src;
+        if(!blobUrl) { alert('No image selected');
+        pageTransition('page3');
+        return;
+    }
         let blob = await fetch(blobUrl)
         .then(response => response.blob())
         .then(blob => {

@@ -68,7 +68,7 @@
             width: 30%;
             /* border-radius: 5px; */
             transition: all 0.3s ease-in-out;
-            box-shadow: inset 2px -4px 0px 0 rgb(0 0 150);
+            box-shadow: inset 2px -4px 0px 0 #242424;
         }
 
         button:disabled {
@@ -233,7 +233,7 @@
 </head>
 <body>
     <header>
-        <h1>aimg</h1>
+        <h1 onclick="location.href = './'">aimg</h1>
         <input id="key" type="password" placeholder="API Key">
     </header>
     <div id="page1" class="page active">
@@ -250,6 +250,7 @@
             <div class="canvas">
                 <span class="staticText">I want an image...<br> <b>of...</b></span>
                 <input type="text" id="prompt" placeholder="...a cute cat">
+                <button class="idk" onclick="showHelp('page2')" >?</button>
             </div>
         </section>
         <div class="btnsHor">
@@ -262,9 +263,10 @@
     <div id="page3" class="page">
         <section>
             <input type="file" id="file" accept="image/*" onchange="fileSelected()">
+            <button class="idk" onclick="showHelp('page3')" >?</button>
         </section>
         <section>
-            <img id="preview" src="" alt="Preview">
+            <img id="preview" alt="Preview">
         </section>
         <div class="btnsHor">
             <button class="go back" onclick="pageTransition('page1')">No</button>
@@ -289,7 +291,8 @@
             <div class="canvas">
                 <span class="staticText">Analyzing this image:</span>
                 <img id="viewImg" src="" alt="Image to View">
-                <input type="text" id="viewPrompt" placeholder="Describe the composition...">
+                <input type="text" id="viewPrompt" placeholder="Optional instructions...">
+                <button class="idk" style="margin-bottom: 1em;" onclick="showHelp('page5')" >?</button>
                 <span class="resultText" id="viewResult" style="display: none;"></span>
             </div>
         </section>
@@ -334,6 +337,23 @@
         let preview = document.getElementById('preview');
         preview.src = URL.createObjectURL(file);
     }
+
+    function showHelp(page) {
+        switch (page) {
+            case 'page2':
+                alert('Enter a description of the image you want to generate. For example, "a cute cat". You can be as descriptive as you want.');
+                break;
+            case 'page3':
+                alert('Upload an image that will be analyzed by the AI. The AI will then generate a new image based on the analysis.');
+                break;
+            case 'page5':
+                alert(`You can analyze the image with the AI to get a description of the image.\n\nYou can also add optional instructions for the AI to follow when creating its analysis.\n\nIf you don't like the result, you can re-analyze the image, with or without new instructions.`);
+                break;
+            default:
+                break;
+        }
+    }
+
 </script>
 <script src="./client.js" type="module"></script>
 </html>
