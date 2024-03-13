@@ -68,6 +68,7 @@ window.addEventListener('DOMContentLoaded', () => {
             model: model,
             prompt: `${prompt}`,
         };
+        if(model == 'dall-e-2') image.size = '256x256';
 
         let result = await chat.imageCompletion(image, key);
         return result;
